@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Pixel Racer - 75px Edition</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+    <div id="main-layout">
+        <div id="game-container">
+            <div class="label start">START</div>
+            <div class="label finish">FINISH</div>
+            <canvas id="mazeCanvas"></canvas>
+            <img id="car" src="../SLIKE/up.png" alt="Avto">
+        </div>
+
+        <div id="sidebar">
+            <div class="timer">Čas: <span id="time-val">0.0</span>s</div>
+            <div class="legend">
+                <h3>KONTROLE</h3>
+                <p><b>W, A, S, D</b> ali <b>PUŠČICE</b></p>
+                <p><small>Hitrost: 1.0 (Polovična)</small></p>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/script.js"></script>
+</body>
+</html>
