@@ -208,10 +208,11 @@ function updateRotation(dx, dy) {
     if (dy < -0.1) dir += "up"; else if (dy > 0.1) dir += "down";
     if (dx < -0.1) dir += (dir ? "Left" : "left"); else if (dx > 0.1) dir += (dir ? "Right" : "right");
     if (dir) {
-        const newSrc = `../SLIKE/${dir}.png`;
+        const newSrc = `../slike/${dir}.png`;
         if (car.src !== newSrc) car.src = newSrc;
     }
 }
 
 // Zagon zanke
+
 update();
