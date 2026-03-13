@@ -33,7 +33,7 @@ body {
     width: 100%;
     max-width: 750px;
     aspect-ratio: 1 / 1;
-    background: #7db154;
+    background: transparent;
     border: 8px solid #222;
     border-radius: 16px;
     box-sizing: border-box;
@@ -45,6 +45,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 8px; /* Da ne seka ven iz okvirja */
+    opacity: 0.75;
 }
 
 #car {
@@ -203,4 +204,5 @@ body {
     box-shadow: none;
     opacity: 0.5;
 }
+
 
