@@ -12,13 +12,14 @@ let carX = 380;
 let carY = 20;
 let carAngle = 0;
 
+let gameStarted = false; // To nam pove, ali se je igralec že premaknil
+let startTime = 0;       // Tukaj bomo shranili točen čas začetka
 let lastTime = 0;
 let speedPerSecond = 138;
 const hitboxRadiusX = 8;  
 const hitboxRadiusY = 16; 
 
 let keys = {};
-let startTime;
 let gameActive = true;
 let cachedImageData = null; 
 
@@ -137,7 +138,6 @@ const url = URL.createObjectURL(svgBlob);
 mazeImg.onload = () => {
     ctx.drawImage(mazeImg, 0, 0);
     cachedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    startTime = Date.now();
     requestAnimationFrame(update);
 };
 mazeImg.src = url;
@@ -242,8 +242,8 @@ function update(currentTime) {
         lastTime = 0; 
         return;
     }
-	
-	ctx.clearRect(0, 0, canvas.width, canvas.height); // Pobriše star frame
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Pobriše star frame
     ctx.drawImage(mazeImg, 0, 0);                     // Nariše čist labirint
     drawSolution();
 
@@ -252,6 +252,15 @@ function update(currentTime) {
     lastTime = currentTime;
 
     if (deltaTime > 0.1) deltaTime = 0.016;
+
+    // --- 1. DODATEK: PREVERJANJE PRVEGA PREMIKA ---
+    // Če se igra še ni začela in igralec pritisne katerokoli smerno tipko:
+    if (!gameStarted && (keys["w"] || keys["arrowup"] || keys["s"] || keys["arrowdown"] || 
+                         keys["a"] || keys["arrowleft"] || keys["d"] || keys["arrowright"])) {
+        gameStarted = true;
+        startTime = Date.now(); // Shranimo točen trenutek prvega premika
+    }
+    // ----------------------------------------------
 
     let currentSpeed = speedPerSecond * deltaTime;
     let dx = 0;
@@ -311,7 +320,12 @@ function update(currentTime) {
     car.style.top = (carY / 8) + '%';
     car.style.transform = "translate(-50%, -50%) rotate(" + carAngle + "deg)";
 
-    timeDisplay.innerText = ((Date.now() - startTime) / 1000).toFixed(1);
+    // --- 2. POPRAVEK: ŠTOPARICA TEČE SAMO, ČE SE JE IGRA ZAČELA ---
+    if (gameStarted) {
+        // Dodal sem še + 's' na koncu, da lepo izpiše enoto (npr. 12.5s)
+        timeDisplay.innerText = ((Date.now() - startTime) / 1000).toFixed(1) + "s";
+    }
+    // --------------------------------------------------------------
 
     requestAnimationFrame(update);
 }
